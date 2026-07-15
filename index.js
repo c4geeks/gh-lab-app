@@ -4,7 +4,7 @@ export function greet(name) {
 }
 
 export function shout(name) {
-  return greet(name).toUpperCase;
+  return greet(name).toUpperCase();
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
