@@ -1,0 +1,28 @@
+name: deploy
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        type: choice
+        options: [staging, production]
+        required: true
+      dry_run:
+        description: Print the plan without deploying
+        type: boolean
+        default: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show deploy plan
+        run: |
+          echo "Deploying to ${{ inputs.environment }} (dry_run=${{ inputs.dry_run }})"
+      - name: Use the API token secret
+        env:
+          APP_API_TOKEN: ${{ secrets.APP_API_TOKEN }}
+          APP_LOG_LEVEL: ${{ vars.APP_LOG_LEVEL }}
+        run: |
+          if [ -n "$APP_API_TOKEN" ]; then echo "APP_API_TOKEN is set (${#APP_API_TOKEN} chars)"; else echo "APP_API_TOKEN missing"; exit 1; fi
+          echo "Log level from repo variable: $APP_LOG_LEVEL"
