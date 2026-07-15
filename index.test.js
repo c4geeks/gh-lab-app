@@ -9,3 +9,7 @@ test("greets the world by default", () => {
 test("greets a named target", () => {
   assert.equal(greet("computingforgeeks"), "hello, computingforgeeks");
 });
+
+test("falls back to world on empty string", () => {
+  assert.equal(greet(""), "hello, world");
+});

@@ -1,5 +1,6 @@
-export function greet(name = "world") {
-  return `hello, ${name}`;
+export function greet(name) {
+  const target = name || "world";
+  return `hello, ${target}`;
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
